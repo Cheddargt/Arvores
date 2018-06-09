@@ -44,9 +44,6 @@ void Arvore::AdicionaArvore()
     auxesq->ant = aux;
     auxdir->ant = aux;
 
-
-
-
     int valor = 0;
     int i = 0;
 
@@ -90,6 +87,7 @@ void Arvore::AdicionaArvore()
         {
             if (valor > n->info)
             {
+                cout << "entrou" << endl;
                 if (n->dir->info == -1)
                 {
                     n->dir = aux;
@@ -159,7 +157,8 @@ void Arvore::ImprimeArvore()
     p->ant = NULL;
     p->info = nulo;
     p->impressoes = 0;
-
+    total_impressoes++;
+    int local_impressoes = 0;
     //node* p = new node;
 
     p = topo_arvore;
@@ -179,39 +178,27 @@ void Arvore::ImprimeArvore()
                 topo_arvore->esq->info, topo_arvore->dir->info);
 
         //while (imprimidos.size() < todos_valores.size())
-        while (total_impressoes < todos_valores.size())
+        while (local_impressoes < todos_valores.size())
         {
-            if (p->esq->info != nulo)
+            if ((p->esq->info != nulo) && (p->impressoes < total_impressoes))
             {
                 p = p->esq;
                 printf ("No: %d FE: %d FD: %d\n", p->info, p->esq->info, p->dir->info);
                 //imprimidos.push_back (p->info);
                 p->impressoes++;
-                total_impressoes++;
+                local_impressoes++;
             }
-            if (p->dir->info != nulo)
+            if ((p->dir->info != nulo) && (p->impressoes < total_impressoes))
             {
                 p = p->dir;
                 printf ("No: %d FE: %d FD: %d\n", p->info, p->esq->info, p->dir->info);
                 //imprimidos.push_back (p->info);
                 p->impressoes++;
-                total_impressoes++;
+                local_impressoes++;
             }
             else
             {
-
-                while (p->impressoes == total_impressoes)
-                {
-                    p=p->ant;
-                    if ((p->dir->info != nulo) && (p->dir->impressoes < total_impressoes))
-                    {
-                        p = p->dir;
-                    }
-
-                    printf ("No: %d FE: %d FD: %d\n", p->info, p->esq->info, p->dir->info);
-
-                }
-
+                p = p->ant;
             }
         }
 
