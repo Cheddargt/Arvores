@@ -20,6 +20,7 @@ void Arvore::AdicionaArvore()
     node* n = new node;
     n->esq = NULL;
     n->dir = NULL;
+    n->ant = NULL;
     n->info = nulo;
 
     node* auxesq = new node;
@@ -36,6 +37,10 @@ void Arvore::AdicionaArvore()
     aux->esq = auxesq;
     aux->dir = auxdir;
     aux->info = nulo;
+    auxesq->ant = aux;
+    auxdir->ant = aux;
+
+
 
     int valor = 0;
     int i = 0;
@@ -59,6 +64,7 @@ void Arvore::AdicionaArvore()
         topo_arvore->info = valor;
         topo_arvore->esq = auxesq;
         topo_arvore->dir = auxdir;
+        topo_arvore->ant = NULL;
 
         cout << "No adicionado com suceso! (1)" << endl;
         todos_valores.push_back (valor);
@@ -81,6 +87,7 @@ void Arvore::AdicionaArvore()
                 if (n->dir->info == -1)
                 {
                     n->dir = aux;
+                    aux->ant = n;
                     n = aux;
 
                     cout << "No adicionado com suceso! (2)" << endl;
@@ -95,6 +102,7 @@ void Arvore::AdicionaArvore()
                 }
                 else
                 {
+                    n->dir->ant = n;
                     n = n->dir;
                 }
             }
@@ -104,8 +112,8 @@ void Arvore::AdicionaArvore()
                 if (n->esq->info == -1)
                 {
                     n->esq = aux;
+                    aux->ant = n;
                     n = aux;
-
 
                     cout << "No adicionado com suceso! (2)" << endl;
                     todos_valores.push_back (valor);
@@ -120,7 +128,8 @@ void Arvore::AdicionaArvore()
                 }
                 else
                 {
-                    n = n->esq;
+                    n->dir->ant = n;
+                    n = n->dir;
                 }
             }
         }

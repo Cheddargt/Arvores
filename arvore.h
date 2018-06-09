@@ -12,6 +12,7 @@ struct node
     int info;
     node *esq;
     node *dir;
+    node *ant;
 };
 
 class Arvore
