@@ -42,6 +42,10 @@ void Arvore::AdicionaArvore()
 
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> parent of db7d37d... Erros
     int valor = 0;
     int i = 0;
 
@@ -147,6 +151,17 @@ void Arvore::RemoveArvore()
 void Arvore::ImprimeArvore()
 {
     node* p = new node;
+<<<<<<< HEAD
+=======
+    p->esq = NULL;
+    p->dir = NULL;
+    p->ant = NULL;
+    p->info = nulo;
+    p->impressoes = 0;
+
+    //node* p = new node;
+
+>>>>>>> parent of db7d37d... Erros
     p = topo_arvore;
     int i = 0;
 
@@ -164,17 +179,53 @@ void Arvore::ImprimeArvore()
         printf ("Raiz: %d FE: %d FD: %d\n", topo_arvore->info,
         topo_arvore->esq->info, topo_arvore->dir->info);
 
+<<<<<<< HEAD
         while ((p->esq->info != nulo) || (p->dir->info != nulo))
         {
+=======
+        //while (imprimidos.size() < todos_valores.size())
+        while (total_impressoes < todos_valores.size())
+        {
+            if (p->esq->info != nulo)
+            {
+                p = p->esq;
+                printf ("No: %d FE: %d FD: %d\n", p->info, p->esq->info, p->dir->info);
+                //imprimidos.push_back (p->info);
+                p->impressoes++;
+                total_impressoes++;
+            }
+>>>>>>> parent of db7d37d... Erros
             if (p->dir->info != nulo)
             {
                 p = p->dir;
                 printf ("No: %d FE: %d FD: %d\n", p->info, p->esq->info, p->dir->info);
+<<<<<<< HEAD
+=======
+                //imprimidos.push_back (p->info);
+                p->impressoes++;
+                total_impressoes++;
+>>>>>>> parent of db7d37d... Erros
             }
             if (p->dir->info == nulo)
             {
+<<<<<<< HEAD
                 p = p->esq;
                 printf ("No: %d FE: %d FD: %d\n", p->info, p->esq->info, p->dir->info);
+=======
+
+                while (p->impressoes == total_impressoes)
+                {
+                    p=p->ant;
+                    if ((p->dir->info != nulo) && (p->dir->impressoes < total_impressoes))
+                    {
+                        p = p->dir;
+                    }
+
+                    printf ("No: %d FE: %d FD: %d\n", p->info, p->esq->info, p->dir->info);
+
+                }
+
+>>>>>>> parent of db7d37d... Erros
             }
 
         }

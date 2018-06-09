@@ -4,7 +4,11 @@
 	<stdio.h>
 	"arvore.h"
 
+<<<<<<< HEAD
 1528505518 source:c:\users\lenovo t430\lenovo-t430 salvar\utfpr\ed1\arvores\arvore.cpp
+=======
+1528586091 source:c:\users\lenovo t430\lenovo-t430 salvar\utfpr\ed1\arvores\arvore.cpp
+>>>>>>> parent of db7d37d... Erros
 	"arvore.h"
 
 1528505518 c:\users\lenovo t430\lenovo-t430 salvar\utfpr\ed1\arvores\arvore.h
