@@ -2,7 +2,7 @@
 
 
 int total = 0;
-int total_impressoes = 0;
+
 vector <int> todos_valores;
 
 Arvore::Arvore()
@@ -22,28 +22,23 @@ void Arvore::AdicionaArvore()
     n->dir = NULL;
     n->ant = NULL;
     n->info = nulo;
-    n->impressoes = 0;
 
     node* auxesq = new node;
     auxesq->esq = NULL;
     auxesq->dir = NULL;
     auxesq->info = nulo;
-    auxesq->impressoes = 0;
 
     node* auxdir = new node;
     auxdir->esq = NULL;
     auxdir->dir = NULL;
     auxdir->info = nulo;
-    auxesq->impressoes = 0;
 
     node* aux = new node;
     aux->esq = auxesq;
     aux->dir = auxdir;
     aux->info = nulo;
-    aux->impressoes = 0;
     auxesq->ant = aux;
     auxdir->ant = aux;
-
 
 
 
@@ -70,7 +65,6 @@ void Arvore::AdicionaArvore()
         topo_arvore->esq = auxesq;
         topo_arvore->dir = auxdir;
         topo_arvore->ant = NULL;
-        topo_arvore->impressoes = 0;
 
         cout << "No adicionado com suceso! (1)" << endl;
         todos_valores.push_back (valor);
@@ -152,19 +146,9 @@ void Arvore::RemoveArvore()
 
 void Arvore::ImprimeArvore()
 {
-
     node* p = new node;
-    p->esq = NULL;
-    p->dir = NULL;
-    p->ant = NULL;
-    p->info = nulo;
-    p->impressoes = 0;
-
-    //node* p = new node;
-
     p = topo_arvore;
     int i = 0;
-    //vector <int> imprimidos;
 
     if (topo_arvore == NULL)
     {
@@ -173,51 +157,31 @@ void Arvore::ImprimeArvore()
         MenuPrincipal(); //break
     }
 
+
+
     else
     {
         printf ("Raiz: %d FE: %d FD: %d\n", topo_arvore->info,
-                topo_arvore->esq->info, topo_arvore->dir->info);
+        topo_arvore->esq->info, topo_arvore->dir->info);
 
-        //while (imprimidos.size() < todos_valores.size())
-        while (total_impressoes < todos_valores.size())
+        while ((p->esq->info != nulo) || (p->dir->info != nulo))
         {
-            if (p->esq->info != nulo)
-            {
-                p = p->esq;
-                printf ("No: %d FE: %d FD: %d\n", p->info, p->esq->info, p->dir->info);
-                //imprimidos.push_back (p->info);
-                p->impressoes++;
-                total_impressoes++;
-            }
             if (p->dir->info != nulo)
             {
                 p = p->dir;
                 printf ("No: %d FE: %d FD: %d\n", p->info, p->esq->info, p->dir->info);
-                //imprimidos.push_back (p->info);
-                p->impressoes++;
-                total_impressoes++;
             }
-            else
+            if (p->dir->info == nulo)
             {
-
-                while (p->impressoes == total_impressoes)
-                {
-                    p=p->ant;
-                    if ((p->dir->info != nulo) && (p->dir->impressoes < total_impressoes))
-                    {
-                        p = p->dir;
-                    }
-
-                    printf ("No: %d FE: %d FD: %d\n", p->info, p->esq->info, p->dir->info);
-
-                }
-
+                p = p->esq;
+                printf ("No: %d FE: %d FD: %d\n", p->info, p->esq->info, p->dir->info);
             }
+
         }
 
     }
 
-    MenuPrincipal();
+
 }
 
 void Arvore::MenuPrincipal()
