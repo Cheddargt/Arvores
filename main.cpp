@@ -19,3 +19,5 @@ int main()
 //PROBLEMA: pra imprimir, um node auxiliar vai descendo pela árvore e imprimindo, PORÉM ele não sobe para imprimir os próximos nodes
 ///solução: while coisa pra esquerda imprime, else imprime pra direita ou acaba
 ///ponteiro pro anterior
+
+//PROBLEMA: não tá voltando pro vinte 10 5 3 20
