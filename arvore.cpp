@@ -87,7 +87,6 @@ void Arvore::AdicionaArvore()
         {
             if (valor > n->info)
             {
-                cout << "entrou" << endl;
                 if (n->dir->info == -1)
                 {
                     n->dir = aux;
@@ -143,121 +142,332 @@ void Arvore::AdicionaArvore()
 
 void Arvore::RemoveArvore()
 {
+    node* n = new node;
+    n->esq = NULL;
+    n->dir = NULL;
+    n->ant = NULL;
+    n->info = nulo;
+    n->impressoes = 0;
 
-}
+    node* auxesq = new node;
+    auxesq->esq = NULL;
+    auxesq->dir = NULL;
+    auxesq->info = nulo;
+    auxesq->impressoes = 0;
 
-void Arvore::ImprimeArvore()
-{
+    node* auxdir = new node;
+    auxdir->esq = NULL;
+    auxdir->dir = NULL;
+    auxdir->info = nulo;
+    auxesq->impressoes = 0;
 
-    node* p = new node;
-    p->esq = NULL;
-    p->dir = NULL;
-    p->ant = NULL;
-    p->info = nulo;
+    node* aux = new node;
+    aux->esq = auxesq;
+    aux->dir = auxdir;
+    aux->info = nulo;
+    aux->impressoes = 0;
+    auxesq->ant = aux;
+    auxdir->ant = aux;
 
-    p->impressoes = 0;
-
-    total_impressoes++;
-
-    int local_impressoes = 0;
-    //node* p = new node;
-
-    p = topo_arvore;
+    int valor = 0;
     int i = 0;
-    //vector <int> imprimidos;
+    bool existe = false;
+    bool achou = false;
 
+    cout << "Insira valor a ser removido" << endl;
+    cin >> valor;
+
+    aux->info = valor;
+
+    for (i = 0; i < todos_valores.size(); i++)
+    {
+        if (todos_valores[i] == valor)
+        {
+            existe = true;
+        }
+    }
     if (topo_arvore == NULL)
     {
-        cout << "A arvore esta vazia!" << endl;
-        printf("\n");
-        MenuPrincipal(); //break
+        cout << "ERRO: A arvore esta vazia!" << endl;
+        MenuPrincipal();
     }
 
-    else
+    else if (existe)
     {
-        printf ("Raiz: %d FE: %d FD: %d\n", topo_arvore->info,
-                topo_arvore->esq->info, topo_arvore->dir->info);
+        n = topo_arvore;
 
-        //while (imprimidos.size() < todos_valores.size())
-        while (local_impressoes < todos_valores.size())
+        while (!achou)
         {
-            if (p->esq->info != nulo)
+            if (valor > n->info)
             {
-                if (p->esq->impressoes < total_impressoes)
+                if (n->dir->info == valor)
                 {
+                    achou = true;
+                    aux = n->dir;
 
-                    p = p->esq;
-                    printf ("No: %d FE: %d FD: %d\n", p->info, p->esq->info, p->dir->info);
-                    //imprimidos.push_back (p->info);
-                    p->impressoes++;
-                    local_impressoes++;
-                    printf ("total_impressoes: %d\n", total_impressoes);
-                    printf ("total_impressoes: %d\n", local_impressoes);
+                    if (aux->esq->info =! nulo)
+                    {
+                        n->dir = aux->esq;
+
+                        if (aux->dir->info =! nulo)
+                            aux->esq->dir = aux->dir;
+
+                        for (i = 0; i < todos_valores.size(); i++) ///Remove o valor de todos_valores
+                        {
+                            if (aux->info == todos_valores[i])
+                                todos_valores.erase (todos_valores.begin() + i);
+                        }
+
+                        cout << "No removido com suceso! (2)" << endl;
+                        for (i = 0; i < todos_valores.size(); i++)
+                            cout << todos_valores[i] << " ";
+                        printf ("\n");
+
+                        delete aux;
+                        MenuPrincipal();
+                    }
+
+                    if (aux->dir->info =! nulo)
+                    {
+                        n->dir = aux->dir;
+
+                        if (aux->esq->info =! nulo)
+                            aux->dir->esq = aux->esq;
+
+                        for (i = 0; i < todos_valores.size(); i++) ///Remove o valor de todos_valores
+                        {
+                            if (aux->info == todos_valores[i])
+                                todos_valores.erase (todos_valores.begin() + i);
+                        }
+
+                        cout << "No removido com suceso! (2)" << endl;
+                        for (i = 0; i < todos_valores.size(); i++)
+                            cout << todos_valores[i] << " ";
+                        printf ("\n");
+
+                        delete aux;
+                        MenuPrincipal();
+                    }
+
+
+                    else
+                    {
+                        for (i = 0; i < todos_valores.size(); i++) ///Remove o valor de todos_valores
+                        {
+                            if (aux->info == todos_valores[i])
+                                todos_valores.erase (todos_valores.begin() + i);
+                        }
+
+                        cout << "No removido com suceso! (2)" << endl;
+                        for (i = 0; i < todos_valores.size(); i++)
+                            cout << todos_valores[i] << " ";
+                        printf ("\n");
+
+                        n->dir = auxdir;
+
+                        delete aux;
+                        MenuPrincipal();
+                    }
+
                 }
 
-                else if (p->dir->info != nulo)
-                      p = p->dir;
-            }
-
-            if (p->dir->info != nulo)
-            {
-                if (p->dir->impressoes < total_impressoes)
-                {
-                    p = p->dir;
-                    printf ("No: %d FE: %d FD: %d\n", p->info, p->esq->info, p->dir->info);
-                    //imprimidos.push_back (p->info);
-                    p->impressoes++;
-                    local_impressoes++;
-                    printf ("total_impressoes: %d\n", total_impressoes);
-                    printf ("total_impressoes: %d\n", local_impressoes);
-                }
                 else
-                    p = p->ant->ant;
+                {
+                    n = n->dir;
+                }
             }
+
+            if (valor < n->info)
+            {
+                if (n->esq->info == valor)
+                {
+                    achou = true;
+                    aux = n->esq;
+
+                    if (aux->esq->info =! nulo)
+                    {
+                        n->esq = aux->esq;
+
+                        if (aux->dir->info =! nulo)
+                            aux->esq->dir = aux->dir;
+
+                        for (i = 0; i < todos_valores.size(); i++) ///Remove o valor de todos_valores
+                        {
+                            if (aux->info == todos_valores[i])
+                                todos_valores.erase (todos_valores.begin() + i);
+                        }
+
+                        cout << "No removido com suceso! (2)" << endl;
+                        for (i = 0; i < todos_valores.size(); i++)
+                            cout << todos_valores[i] << " ";
+                        printf ("\n");
+
+                        delete aux;
+                        MenuPrincipal();
+                    }
+
+                    if (aux->dir->info =! nulo)
+                    {
+                        n->esq = aux->dir;
+
+                        if (aux->esq->info =! nulo)
+                            aux->dir->esq = aux->esq;
+
+                        for (i = 0; i < todos_valores.size(); i++) ///Remove o valor de todos_valores
+                        {
+                            if (aux->info == todos_valores[i])
+                                todos_valores.erase (todos_valores.begin() + i);
+                        }
+
+                        cout << "No removido com suceso! (2)" << endl;
+                        for (i = 0; i < todos_valores.size(); i++)
+                            cout << todos_valores[i] << " ";
+                        printf ("\n");
+
+                        delete aux;
+                        MenuPrincipal();
+                    }
+
+
+                    else
+                    {
+                        for (i = 0; i < todos_valores.size(); i++) ///Remove o valor de todos_valores
+                        {
+                            if (aux->info == todos_valores[i])
+                                todos_valores.erase (todos_valores.begin() + i);
+                        }
+
+                        cout << "No removido com suceso! (2)" << endl;
+                        for (i = 0; i < todos_valores.size(); i++)
+                            cout << todos_valores[i] << " ";
+                        printf ("\n");
+
+                        n->esq = auxesq;
+
+                        delete aux;
+                        break;
+                    }
+
+                }
+
+                else
+                {
+                    n = n->esq;
+                }
+            }
+
+
         }
-
     }
-
-    MenuPrincipal();
 }
 
-void Arvore::MenuPrincipal()
-{
-    char opc = 0;
-    bool menu = true;
-    while (menu)
-    {
-        cout << "1. Insercao em arvore binaria" << endl
-             << "2. Remocao em arvore binaria" << endl
-             << "3. Apresentacao da arvore" << endl
-             << "0. Fechar e ir pra casa" << endl;
-
-        cin >> opc;
-
-        if(opc != '1' && opc != '2' && opc != '3' && opc != '0')
-            cout << "ERRO: Opcao invalida." << endl << endl;
-
-        if(opc == '1')
+        void Arvore::ImprimeArvore()
         {
-            AdicionaArvore();
+
+            node* p = new node;
+            p->esq = NULL;
+            p->dir = NULL;
+            p->ant = NULL;
+            p->info = nulo;
+
+            p->impressoes = 0;
+
+            total_impressoes++;
+
+            int local_impressoes = 0;
+            //node* p = new node;
+
+            p = topo_arvore;
+            int i = 0;
+            //vector <int> imprimidos;
+
+            if (topo_arvore == NULL)
+            {
+                cout << "A arvore esta vazia!" << endl;
+                printf("\n");
+                MenuPrincipal(); //break
+            }
+
+            else
+            {
+                printf ("Raiz: %d FE: %d FD: %d\n", topo_arvore->info,
+                        topo_arvore->esq->info, topo_arvore->dir->info);
+
+                //while (imprimidos.size() < todos_valores.size())
+                while (local_impressoes < todos_valores.size())
+                {
+                    if ((p->esq->info != nulo) && (p->esq->impressoes < total_impressoes))
+                    {
+
+
+                        p = p->esq;
+                        printf ("No: %d FE: %d FD: %d\n", p->info, p->esq->info, p->dir->info);
+                        //imprimidos.push_back (p->info);
+                        p->impressoes++;
+                        local_impressoes++;
+
+
+                    }
+
+                    else if ((p->dir->info != nulo) && (p->dir->impressoes < total_impressoes))
+                    {
+
+                        p = p->dir;
+                        printf ("No: %d FE: %d FD: %d\n", p->info, p->esq->info, p->dir->info);
+                        //imprimidos.push_back (p->info);
+                        p->impressoes++;
+                        local_impressoes++;
+
+                    }
+
+                    else if (p != topo_arvore)
+                        p = p->ant;
+                    else
+                        break;
+                }
+
+            }
+
+            MenuPrincipal();
         }
-        if(opc == '2')
+
+        void Arvore::MenuPrincipal()
         {
-            RemoveArvore();
-        }
-        if(opc == '3')
-        {
-            ImprimeArvore();
-        }
-        if(opc == '0')
-        {
-            cout << "Tchau tchau" << endl;
-            menu = false;
-        }
-    }
+            char opc = 0;
+            bool menu = true;
+            while (menu)
+            {
+                cout << "1. Insercao em arvore binaria" << endl
+                     << "2. Remocao em arvore binaria" << endl
+                     << "3. Apresentacao da arvore" << endl
+                     << "0. Fechar e ir pra casa" << endl;
+
+                cin >> opc;
+
+                if(opc != '1' && opc != '2' && opc != '3' && opc != '0')
+                    cout << "ERRO: Opcao invalida." << endl << endl;
+
+                if(opc == '1')
+                {
+                    AdicionaArvore();
+                }
+                if(opc == '2')
+                {
+                    RemoveArvore();
+                }
+                if(opc == '3')
+                {
+                    ImprimeArvore();
+                }
+                if(opc == '0')
+                {
+                    cout << "Tchau tchau" << endl;
+                    menu = false;
+                }
+            }
 
 
 
-}
+        }
 
 

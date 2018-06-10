@@ -21,3 +21,5 @@ int main()
 ///ponteiro pro anterior
 
 //PROBLEMA: não tá voltando pro vinte 10 5 3 20
+
+//PROBLEMA: não tá linkando os superiores com os inferiores do deletado

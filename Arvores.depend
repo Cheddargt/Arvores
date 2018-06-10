@@ -1,10 +1,10 @@
 # depslib dependency file v1.0
-1528504137 source:c:\users\lenovo t430\lenovo-t430 salvar\utfpr\ed1\arvores\main.cpp
+1528589005 source:c:\users\lenovo t430\lenovo-t430 salvar\utfpr\ed1\arvores\main.cpp
 	<iostream>
 	<stdio.h>
 	"arvore.h"
 
-1528588956 source:c:\users\lenovo t430\lenovo-t430 salvar\utfpr\ed1\arvores\arvore.cpp
+1528653436 source:c:\users\lenovo t430\lenovo-t430 salvar\utfpr\ed1\arvores\arvore.cpp
 	"arvore.h"
 
 1528584294 c:\users\lenovo t430\lenovo-t430 salvar\utfpr\ed1\arvores\arvore.h
